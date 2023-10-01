@@ -47,8 +47,6 @@ source install/setup.bash
 # Check the action definition
 ros2 interface show action_tutorials_interfaces/action/Fibonacci
 
-#!/bin/bash
-
 # Change directory to the ROS2 workspace source folder
 cd ~/ros2_ws/src
 
@@ -143,3 +141,48 @@ ros2 run demo_nodes_cpp parameter_blackboard
 
 # Set a parameter for the parameter_blackboard node
 ros2 param set parameter_blackboard a_double_param 3.45
+
+# Create and navigate to the 'launch' directory
+mkdir -p launch
+cd launch
+
+# Launch turtlesim_mimic_launch.py
+ros2 launch turtlesim_mimic_launch.py &
+
+# Wait for a moment to allow the launch to complete
+sleep 5
+
+# Publish a Twist message to control the turtle
+ros2 topic pub -r 1 /turtlesim1/turtle1/cmd_vel geometry_msgs/msg/Twist "{linear: {x: 2.0, y: 0.0, z: 0.0}, angular: {x: 0.0, y: 0.0, z: -1.8}}" &
+
+# Open rqt_graph
+rqt_graph &
+
+# Create and navigate to the 'launch_ws/src' directory
+mkdir -p launch_ws/src
+cd launch_ws/src
+
+# Create a ROS2 package for py_launch_example
+ros2 pkg create py_launch_example --build-type ament_python
+
+# Launch my_script_launch.py
+ros2 launch py_launch_example my_script_launch.py &
+
+# Create a ROS2 package for launch_tutorial
+ros2 pkg create launch_tutorial --build-type ament_python
+
+# Create the 'launch' directory inside launch_tutorial
+mkdir -p launch_tutorial/launch
+
+# Launch example_main.launch.py
+ros2 launch launch_tutorial example_main.launch.py &
+
+# Launch example_substitutions.launch.py with custom arguments
+ros2 launch launch_tutorial example_substitutions.launch.py turtlesim_ns:='turtlesim3' use_provided_red:='True' new_background_r:=200 &
+
+# Launch example_event_handlers.launch.py with custom arguments
+ros2 launch launch_tutorial example_event_handlers.launch.py turtlesim_ns:='turtlesim3' use_provided_red:='True' new_background_r:=200 &
+
+# Run turtle_teleop_key
+ros2 run turtlesim turtle_teleop_key
+
