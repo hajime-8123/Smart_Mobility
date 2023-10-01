@@ -186,3 +186,68 @@ ros2 launch launch_tutorial example_event_handlers.launch.py turtlesim_ns:='turt
 # Run turtle_teleop_key
 ros2 run turtlesim turtle_teleop_key
 
+# Install ROS packages
+sudo apt-get install ros-humble-turtle-tf2-py ros-humble-tf2-tools ros-humble-tf-transformations
+
+# Launch turtle_tf2_py demo
+ros2 launch turtle_tf2_py turtle_tf2_demo.launch.py
+
+# Run turtle_teleop_key
+ros2 run turtlesim turtle_teleop_key
+
+# Run tf2_tools view_frames
+ros2 run tf2_tools view_frames
+
+# Run tf2_echo with specified frames
+ros2 run tf2_ros tf2_echo [source_frame] [target_frame]
+ros2 run tf2_ros tf2_echo turtle2 turtle1
+
+# Launch RViz with turtle_rviz.rviz configuration
+ros2 run rviz2 rviz2 -d $(ros2 pkg prefix --share turtle_tf2_py)/rviz/turtle_rviz.rviz
+
+# Create and build learning_tf2_py package
+ros2 pkg create --build-type ament_python learning_tf2_py
+wget https://raw.githubusercontent.com/ros/geometry_tutorials/ros2/turtle_tf2_py/turtle_tf2_py/static_turtle_tf2_broadcaster.py
+rosdep install -i --from-path src --rosdistro humble -y
+colcon build --packages-select learning_tf2_py
+
+# Run static_turtle_tf2_broadcaster for learning_tf2_py
+ros2 run learning_tf2_py static_turtle_tf2_broadcaster mystaticturtle 0 0 1 0 0 0
+
+# Display /tf_static topic
+ros2 topic echo /tf_static
+
+# Run static_transform_publisher for learning_tf2_py
+ros2 run tf2_ros static_transform_publisher --x x --y y --z z --yaw yaw --pitch pitch --roll roll --frame-id frame_id --child-frame-id child_frame_id
+ros2 run tf2_ros static_transform_publisher --x x --y y --z z --qx qx --qy qy --qz qz --qw qw --frame-id frame_id --child-frame-id child_frame_id
+
+# Create and build learning_tf2_cpp package
+ros2 pkg create --build-type ament_cmake --dependencies geometry_msgs rclcpp tf2 tf2_ros turtlesim -- learning_tf2_cpp
+wget https://raw.githubusercontent.com/ros/geometry_tutorials/ros2/turtle_tf2_cpp/src/static_turtle_tf2_broadcaster.cpp
+rosdep install -i --from-path src --rosdistro humble -y
+colcon build --packages-select learning_tf2_cpp
+
+# Run static_turtle_tf2_broadcaster for learning_tf2_cpp
+ros2 run learning_tf2_cpp static_turtle_tf2_broadcaster mystaticturtle 0 0 1 0 0 0
+
+# Display /tf_static topic
+ros2 topic echo /tf_static
+
+# Run static_transform_publisher for learning_tf2_cpp
+ros2 run tf2_ros static_transform_publisher --x x --y y --z z --yaw yaw --pitch pitch --roll roll --frame-id frame_id --child-frame-id child_frame_id
+ros2 run tf2_ros static_transform_publisher --x x --y y --z z --qx qx --qy qy --qz qz --qw qw --frame-id frame_id --child-frame-id child_frame_id
+
+# Additional commands for learning_tf2_py
+wget https://raw.githubusercontent.com/ros/geometry_tutorials/ros2/turtle_tf2_py/turtle_tf2_py/turtle_tf2_broadcaster.py
+rosdep install -i --from-path src --rosdistro humble -y
+colcon build --packages-select learning_tf2_py
+ros2 launch learning_tf2_py turtle_tf2_demo.launch.py
+ros2 run turtlesim turtle_teleop_key
+ros2 run tf2_ros tf2_echo world turtle1
+
+# Additional commands for learning_tf2_cpp
+wget https://raw.githubusercontent.com/ros/geometry_tutorials/ros2/turtle_tf2_cpp/src/turtle_tf2_broadcaster.cpp
+rosdep install -i --from-path src --rosdistro humble -y
+colcon build --packages-select learning_tf2_cpp
+ros2 launch learning_tf2_cpp turtle_tf2_demo.launch.py
+ros2 run tf2_ros tf2_echo world turtle1
