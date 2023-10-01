@@ -251,3 +251,56 @@ rosdep install -i --from-path src --rosdistro humble -y
 colcon build --packages-select learning_tf2_cpp
 ros2 launch learning_tf2_cpp turtle_tf2_demo.launch.py
 ros2 run tf2_ros tf2_echo world turtle1
+
+# Download Python scripts and install dependencies for turtle_tf2_py
+wget https://raw.githubusercontent.com/ros/geometry_tutorials/ros2/turtle_tf2_py/turtle_tf2_py/turtle_tf2_listener.py
+rosdep install -i --from-path src --rosdistro humble -y
+colcon build --packages-select learning_tf2_py
+ros2 launch learning_tf2_py turtle_tf2_demo.launch.py
+
+# Download C++ source code and install dependencies for turtle_tf2_cpp
+wget https://raw.githubusercontent.com/ros/geometry_tutorials/ros2/turtle_tf2_cpp/src/turtle_tf2_listener.cpp
+rosdep install -i --from-path src --rosdistro humble -y
+colcon build --packages-select learning_tf2_cpp
+ros2 launch learning_tf2_cpp turtle_tf2_demo.launch.py
+
+# Download additional Python scripts, install dependencies, and launch demos
+wget https://raw.githubusercontent.com/ros/geometry_tutorials/ros2/turtle_tf2_py/turtle_tf2_py/fixed_frame_tf2_broadcaster.py
+rosdep install -i --from-path src --rosdistro humble -y
+colcon build --packages-select learning_tf2_py
+ros2 launch learning_tf2_py turtle_tf2_fixed_frame_demo.launch.py target_frame:=carrot1
+
+wget https://raw.githubusercontent.com/ros/geometry_tutorials/ros2/turtle_tf2_py/turtle_tf2_py/dynamic_frame_tf2_broadcaster.py
+rosdep install -i --from-path src --rosdistro humble -y
+colcon build --packages-select learning_tf2_py
+ros2 launch learning_tf2_py turtle_tf2_dynamic_frame_demo.launch.py
+
+# Download additional C++ source code and build
+wget https://raw.githubusercontent.com/ros/geometry_tutorials/ros2/turtle_tf2_cpp/src/fixed_frame_tf2_broadcaster.cpp
+colcon build --packages-select learning_tf2_cpp
+ros2 launch learning_tf2_cpp turtle_tf2_fixed_frame_demo.launch.py
+ros2 launch learning_tf2_cpp turtle_tf2_fixed_frame_demo.launch.py target_frame:=carrot1
+
+# Launch more ROS 2 nodes and demos
+ros2 launch learning_tf2_py turtle_tf2_demo.launch.py
+ros2 launch learning_tf2_cpp turtle_tf2_demo.launch.py
+ros2 launch learning_tf2_py turtle_tf2_fixed_frame_demo.launch.py
+ros2 launch learning_tf2_cpp start_tf2_debug_demo.launch.py
+ros2 launch turtle_tf2 start_debug_demo.launch.py
+ros2 run tf2_ros tf2_monitor turtle2 turtle1
+
+# Download another Python script and build
+wget https://raw.githubusercontent.com/ros/geometry_tutorials/ros2/turtle_tf2_py/turtle_tf2_py/turtle_tf2_message_broadcaster.py
+rosdep install -i --from-path src --rosdistro humble -y
+colcon build --packages-select learning_tf2_py
+
+# Download another C++ source file and build
+wget https://raw.githubusercontent.com/ros/geometry_tutorials/ros2/turtle_tf2_cpp/src/turtle_tf2_message_filter.cpp
+rosdep install -i --from-path src --rosdistro humble -y
+colcon build --packages-select learning_tf2_cpp
+
+# Launch the final ROS 2 nodes
+ros2 launch learning_tf2_py turtle_tf2_sensor_message.launch.py
+ros2 run turtlesim turtle_teleop_key
+ros2 topic echo /turtle3/turtle_point_stamped
+ros2 run learning_tf2_cpp turtle_tf2_message_filter
