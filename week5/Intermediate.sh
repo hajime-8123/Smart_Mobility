@@ -304,3 +304,48 @@ ros2 launch learning_tf2_py turtle_tf2_sensor_message.launch.py
 ros2 run turtlesim turtle_teleop_key
 ros2 topic echo /turtle3/turtle_point_stamped
 ros2 run learning_tf2_cpp turtle_tf2_message_filter
+
+# Run tests for selected packages.
+colcon test --ctest-args tests [package_selection_args]
+
+# Display test results for all packages.
+colcon test-result --all
+
+# Display detailed (verbose) test results for all packages.
+colcon test-result --all --verbose
+
+# Build packages with CMake clean cache and debug mixin.
+colcon build --cmake-clean-cache --mixin debug
+
+# Debug a specific test using GDB.
+gdb -ex run ./build/rcl/test/test_logging
+
+# Run specific pytest tests in the selected package.
+colcon test --packages-select <name-of-pkg> --pytest-args -k name_of_the_test_function
+
+# Run tests with console cohesion event handlers.
+colcon test --event-handlers console_cohesion+
+
+# Launch URDF tutorial examples.
+ros2 launch urdf_tutorial display.launch.py model:=urdf/01-myfirst.urdf
+ros2 launch urdf_tutorial display.launch.py model:=`ros2 pkg prefix --share urdf_tutorial`/urdf/01-myfirst.urdf
+ros2 launch urdf_tutorial display.launch.py model:=urdf/02-multipleshapes.urdf
+ros2 launch urdf_tutorial display.launch.py model:=urdf/03-origins.urdf
+ros2 launch urdf_tutorial display.launch.py model:=urdf/04-materials.urdf
+ros2 launch urdf_tutorial display.launch.py model:=urdf/05-visual.urdf
+ros2 launch urdf_tutorial display.launch.py model:=urdf/06-flexible.urdf
+
+# Generate URDF model from an Xacro file.
+xacro model.xacro > model.urdf
+
+# Launch a URDF tutorial example using an Xacro model.
+ros2 launch urdf_tutorial display.launch.py model:=urdf/08-macroed.urdf.xacro
+
+# Create a new ROS2 workspace and launch URDF tutorial.
+mkdir -p ~/second_ros2_ws/src
+cd ~/second_ros2_ws/src
+ros2 pkg create urdf_tutorial_r2d2 --build-type ament_python --dependencies rclpy --license Apache-2.0
+cd urdf_tutorial_r2d2
+mkdir -p urdf
+ros2 launch urdf_tutorial_r2d2 demo.launch.py
+rviz2 -d ~/second_ros2_ws/install/urdf_tutorial_r2d2/share/urdf_tutorial_r2d2/r2d2.rviz
