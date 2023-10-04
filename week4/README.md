@@ -115,3 +115,52 @@
 
 
 ![Screenshot 2023-09-24 145614](https://github.com/hajime-8123/Smart_Mobility/assets/117512935/b7271d61-e4fc-4646-bb7f-35146388671f)
+
+From installing colcon to Building the workplace
+
+![image](https://github.com/hajime-8123/Smart_Mobility/assets/117512935/c6a7a117-5b27-4fef-8e0d-422e7d413e74)
+
+Run and Test colcon
+
+![image](https://github.com/hajime-8123/Smart_Mobility/assets/117512935/584b8007-7332-45a4-914f-3df523616ce8)
+
+Try a demo
+
+![image](https://github.com/hajime-8123/Smart_Mobility/assets/117512935/da442063-d09f-4de6-beac-1de54f68887b)
+
+Source ROS 2 environment ~ Clone a sample repo
+
+![image](https://github.com/hajime-8123/Smart_Mobility/assets/117512935/259eae38-8dea-4801-9607-891c6c5b00fb)
+
+Resolve dependencies ~ Build the workplace with colcon
+
+![image](https://github.com/hajime-8123/Smart_Mobility/assets/117512935/86f6d892-1e25-42da-93ab-569b3fe8b980)
+
+Sourcing the overlay and modifying the overlay
+
+![image](https://github.com/hajime-8123/Smart_Mobility/assets/117512935/f771e453-4c7b-4771-baff-c64e68f3ab3f)
+
+Creating a package
+
+![image](https://github.com/hajime-8123/Smart_Mobility/assets/117512935/e0996e0e-a237-4626-9d80-fd5c3a7fd9dd)
+
+Customize package.xml
+
+![image](https://github.com/hajime-8123/Smart_Mobility/assets/117512935/beadffbf-112e-4126-95f1-af741b59a9e7)
+
+Create a package
+
+![image](https://github.com/hajime-8123/Smart_Mobility/assets/117512935/c216e593-ec25-4bcb-a6f5-cbec6a03538f)
+
+Write the publihser node
+
+![image](https://github.com/hajime-8123/Smart_Mobility/assets/117512935/579610d3-eafc-4616-9aea-3d745539600d)
+
+Add dependencies
+
+![image](https://github.com/hajime-8123/Smart_Mobility/assets/117512935/e2c3da48-28e8-4968-8004-3fe63870c3b8)
+
+CMakeLists.txt
+
+
+
