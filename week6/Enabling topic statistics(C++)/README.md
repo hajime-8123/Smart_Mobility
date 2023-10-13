@@ -1,4 +1,3 @@
-Row File Version of the Paraphrased README:
 
 ```
 # Tasks README
