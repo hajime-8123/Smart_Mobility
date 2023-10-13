@@ -1,72 +1,59 @@
-Welcome to the Smart Mobility Lab Git Repository! This guide provides vital information about our repository, outlining its objectives, structure, and instructions for potential contributors. We urge you to thoroughly review this document to commence your journey.
+### Tasks
 
-Table of Contents
+#### 1. Write the Subscriber Node with Statistics Enabled
 
-Introduction
-Purpose of the Repository
-Structure of the Repository
-Beginning Your Journey
-Contribution Guidelines
-Community Guidelines
-Licensing
-Contact Information
-1. Introduction
+Navigate to the `ros2_ws/src/cpp_pubsub/src` directory, which was created in the previous tutorial, and download the example subscriber code by running the following command:
 
-The Smart Mobility Lab Git Repository acts as a central platform for the management and collaborative efforts on projects linked to smart mobility, transportation, and urban planning. This repository is diligently curated by the Smart Mobility Lab team and functions as a centralized repository for code, documentation, and other resources pertinent to our projects.
+```bash
+wget -O member_function_with_topic_statistics.cpp https://raw.githubusercontent.com/ros2/examples/humble/rclcpp/topics/minimal_subscriber/member_function_with_topic_statistics.cpp
+```
 
-2. Purpose of the Repository
+Now, you will have a new file named `member_function_with_topic_statistics.cpp`. Open this file using your preferred text editor.
 
-Our repository fulfills various crucial roles:
+In this code, we have created a subscriber node that receives string messages from the "topic" and publishes statistics data for these messages. You can configure various options for topic statistics, including enabling/disabling statistics, setting the collection window, and defining the publish period.
 
-Codebase: It serves as a host for the code and software created by the Smart Mobility Lab, encompassing research initiatives, tools, and applications.
-Documentation: We provide comprehensive documentation, guides, and resources concerning our projects to assist users and contributors in understanding and utilizing our work effectively.
-Collaboration: This repository actively encourages collaboration among researchers, developers, and contributors with an interest in smart mobility and urban transportation.
-3. Structure of the Repository
+#### 1.1 Examine the Code
 
-Our repository is meticulously organized to maintain a structured and tidy environment. Below is an overview of the primary directories:
+The code allows you to manually enable topic statistics and configure parameters such as the collection window, publish period, and the topic for statistics publication. You can find these options in the code comments for reference.
 
-Projects: This section contains subdirectories dedicated to each project, with each project directory housing code, documentation, and pertinent files specific to that project.
-Documentation: In this directory, you will find general documentation, user guides, and project-specific documentation.
-Contribution: This directory provides comprehensive guidelines on how to contribute to our projects.
-Licensing: Licensing information for the code and resources within each project is included. We urge you to review these licenses diligently.
-4. Beginning Your Journey
+#### 1.2 CMakeLists.txt
 
-To initiate your experience with our repository, follow these steps:
+Open the `CMakeLists.txt` file and add an executable named `listener_with_topic_statistics` to run your node using `ros2 run`. This will ensure that your pub/sub system, with topic statistics enabled, is ready for use.
 
-Clone the Repository: Use the git clone command to create a local copy of the repository on your machine:
-git clone https://github.com/SmartMobilityLab/RepositoryName.git
+#### 2. Build and Run
 
-Explore Projects: Navigate to the relevant project directories to access code and documentation for specific projects.
-For Contributors: If you are considering contributing, please refer to the Contribution section below.
-5. Contribution Guidelines
+To build and run the subscriber node with statistics enabled, follow the instructions provided in the pub/sub tutorial. Specifically, run the subscriber node using:
 
-We wholeheartedly embrace contributions from the open-source community and collaborators. If you are interested in contributing, please follow these general steps:
+```bash
+ros2 run cpp_pubsub listener_with_topic_statistics
+```
 
-Fork the Repository: Click the "Fork" button in the upper right corner of the repository to create your copy in your GitHub account.
-Clone Your Fork: Clone your fork to your local machine:
+And run the publisher node using:
 
-git clone https://github.com/khumoyun-eddie/Smart-Mobility.git
+```bash
+ros2 run cpp_pubsub talker
+```
 
-Create a Branch: Establish a new branch for your contribution:
-git checkout -b feature/YourFeatureName
+The terminal will display messages being published by the publisher and received by the subscriber with statistics enabled.
 
-Implement Changes: Make your modifications and commit them with clear and concise messages.
-Push Changes: Share your changes with your fork:
-git push origin feature/YourFeatureName
+#### 3. Observe Published Statistic Data
 
-Submit a Pull Request: Visit the original repository and click "New Pull Request" to propose your changes.
-For detailed guidelines on contributing to specific projects, please refer to the comprehensive contribution instructions found in the Contribution directory of this repository.
+While the nodes are running, open a new terminal window and execute the following command:
 
-6. Community Guidelines
+```bash
+ros2 topic list
+```
 
-We expect all participants and users to adhere to our Community Guidelines when engaging in our projects and discussions. Respect, inclusivity, and professionalism form the core values of our community.
+You will see the `/statistics` topic (or the custom topic you may have defined) listed. This topic contains the statistics data published by the subscriber node.
 
-7. Licensing
+To view the statistics data, use the following command:
 
-Typically, each project within this repository is accompanied by its own unique license. We strongly recommend reviewing the licensing information associated with each project in its respective directory. Our projects frequently adopt open-source licenses such as MIT, Apache 2.0, or other licenses that facilitate collaboration and sharing.
+```bash
+ros2 topic echo /statistics
+```
 
-8. Contact Information
+This will display statistics messages that include metrics like message age, message period, and other statistics based on the received messages.
 
-Should you have any inquiries, feedback, or require further assistance, please do not hesitate to contact the Smart Mobility Lab team. You can reach out to us via email or by opening an issue within this repository.
+### Summary
 
-We sincerely appreciate your interest in the Smart Mobility Lab projects, and we eagerly anticipate the prospect of collaborating with you!
+With this repository, you have created a ROS2 subscriber node with topic statistics enabled. This node publishes statistics data from the C++ publisher node, allowing you to monitor and analyze the performance and characteristics of the subscribed topic.
